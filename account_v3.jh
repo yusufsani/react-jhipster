@@ -1,0 +1,629 @@
+entity AuxillaryUsers {
+	title Title,
+    firstName String required,
+    secontName String required,
+    gender Gender required,
+    language Language,
+    mainPhone String,
+    mobilePhone String,
+    email String,  
+    photo ImageBlob,
+    createdOn Instant, 
+    updatedOn Instant
+    
+    
+}
+
+enum Gender {
+    MALE (Male), FEMALE (Female)
+}
+
+enum Title {
+    ALHAJI ("Alhaji"), 
+    CHEIF  (Cheif),
+    DR (Dr),
+    HAJIYA (Hajiya),
+    MR (Mr), MRS (Mrs), MSS (Mss)
+}
+
+enum Language {
+     ENGLISH (English), HAUSA (Hausa), IGBO (Igbo), YORUBA (Yoruba)
+}
+
+entity State{
+	stateName String required
+}
+
+entity LocalGovernment{
+ localGovernmentName String required
+}
+
+entity Country {
+	countryName String
+}
+
+entity Address{
+    addressLine1 String required,
+    addressLine2 String,
+	postalCode String,
+	city String,
+    createdOn Instant, 
+    updatedOn Instant
+
+
+}
+
+
+entity Vehicle {
+	type VehicleType required,
+    licensePlateNo String required,
+    make String required,
+	model String,
+    photo ImageBlob,
+    color String,
+	yearProduction LocalDate,
+	yearBought LocalDate,
+    valueAcquisition BigDecimal  min(0),
+    status VehicleStatus required,
+    registrationStartDate  Instant,
+    registrationExpireDate  Instant,
+    engineSummary TextBlob,
+    fuelCapacity Integer,
+    fuelType FuelType, 
+    engineNumber String,
+    chassisNumber String,
+    cylinders Integer,
+    transmissionType TransmissionType,
+    transmissionGears Integer,
+    note TextBlob,
+    supportingDocuments Blob
+    contractStartDate Instant,
+    contractExpirationDate Instant,
+    meterReading Integer,
+    createdOn Instant, 
+    updatedOn Instant
+     
+
+}
+
+
+enum VehicleStatus {
+    ASSIGNED ("Assigned"), 
+    AVAILABLE ("Available"), 
+    INOPERATION ("In Operation"), 
+    MAINTAINACE ("Maintainace"), 
+    OUTOFSERVICE ("Out Of Service")
+
+}
+
+
+enum VehicleType {
+    BOXTRUCK ("Box Truck"),
+    CONTAINER ("Container"),
+    FLATBED ("Flat Bed")
+    LIVESTOCKTRUCKS ("Livestock Trucks"),
+    PICKUP("Pickup"),
+    TANKER ("Tanker"), 
+    TIPPER ("Tipper"), 
+    TRAILER ("Trailer")
+    
+}
+
+
+enum VehicleCondition {
+   EXCELLENT("Excellent"), SAFETOOPERATE ("Safe to Operate"), 
+   MINOR ("Minor Issues"), NOTSAFE ("Not Safe")
+   
+}
+
+enum TransmissionType {
+    AUTOMATIC (Automatic), AUTOMATEDMANUAL ("Automated Manual" ), MANUAL (Manual )
+    
+}
+
+
+entity Accidents{
+	location String required,
+    timeAccidentOccurred Instant,
+    accidentPhoto ImageBlob,
+    accidentDetails TextBlob required,
+    policeReportNumber Integer,
+    vehicleCondition VehicleCondition
+    createdOn Instant, 
+    updatedOn Instant
+  
+}
+
+entity Issues{
+ reportedOn Instant,
+ description TextBlob required,
+ priority IssuesPriority,
+ attachments Blob,
+ assignedToDate Instant,
+ notifyAssignee Boolean,
+ status IssuesStatus,
+ createdOn Instant, 
+ updatedOn Instant
+}
+
+enum IssuesPriority{
+  CRTICAL (Crtical), HIGH (High), MEDIUM (Medium), LOW (Low)
+
+}
+
+enum IssuesStatus{
+    PENDING (Pending), RESOLVED (Resolved)
+   
+}
+
+entity Workshop{
+		workshopName String required,
+        address TextBlob required,
+        contactName String,
+        mobilePhone String,
+        email String,
+        createdOn Instant, 
+    	updatedOn Instant
+        
+}
+
+entity VehicleInspection{
+ 	inspectionType String required,
+ 	dateCarriedOut Instant required,
+ 	note TextBlob required,
+ 	createdOn Instant, 
+ 	updatedOn Instant
+}
+
+entity QuotedPrice {
+    Quote Float required,
+    createdOn Instant, 
+    updatedOn Instant
+
+}
+
+entity Booking {
+    consigment ConsignmentType,
+    truckType VehicleType, 
+	quantity Integer, 
+	weight Integer,
+    packageType String,
+	trackingNo Integer,
+    status BookingStatus required,
+    createdOn Instant, 
+    updatedOn Instant
+}
+
+enum BookingStatus {
+    CANCELLED (Cancelled), COMPLETED (Completed),  ONGOING ("On-going"), PENDING (Pending)
+    
+}
+
+entity Consignment{
+    consignmentType ConsignmentType,
+	weight Integer,
+    packageType String,
+	netQuantityReceived Integer,
+	price Float,
+    note TextBlob,
+    createdOn Instant, 
+    updatedOn Instant
+
+}
+
+
+enum ConsignmentType{
+    COOKINGOIL ("Cooking Oil"), 
+    DESEAL (Deseal),  FROZEN (Frozen), GRAINS (Grains), 
+    KEROSINE (Kerosine),
+    PETROL (Petrol), PERISHABLE (Perishable),
+    OTHER (Other)
+	
+}
+
+
+
+
+entity BanksAccountDetails{
+	accountNumber Integer required,
+    accountType AccountType required,
+    sortCode String,
+    createdOn Instant, 
+    updatedOn Instant
+    
+}
+
+enum AccountType{
+	 CURRENT ("Current"), SAVINGS ("Savings")
+}
+
+
+entity Banks{
+ 	Name String required,
+    createdOn Instant, 
+    updatedOn Instant
+ 
+}
+
+entity Services{
+    name String required,
+    decrisption TextBlob,
+    createdOn Instant, 
+    updatedOn Instant
+}
+
+enum ServiceTasks{
+  NONE (None), CHANGEOIL ("Change Oil"), CHECKENGINEBELT ("Check Engine Belt"), 
+  CHECKSUSPENSION ("Check Suspension"), REPLACEBRAKEPADS ("Replace Brake Pads"), CHECKTIMINGBELT ("Check Timing Belt"), 
+  REPLACEENGINECOOLANT ("Replace Engine Coolant"),  CHECKBREAK ("Check Break"), CHECKBATTERY ("Check Battery"), 
+  ROTATETIRES ("Rotate Tires"), REPLACEAIRFILTER ("Replace Air Filter"), 
+  REPLACEBRAKEROTOR ("Replace Brake Rotor"), REPLACETRANSMISSIONFLUID ("Replace Transmission Fluid"), 
+  REPLACESPARKPLUG ("Replace Spark Plug"), REPAIRRUST ("Repair Rust")
+  
+}
+
+
+entity FuelEntry{
+ date Instant required, 
+ vendor String required,
+ vendorAddress TextBlob required,
+ quantity BigDecimal required,
+ pricePerLiter BigDecimal,
+ totalPrice BigDecimal required,
+ meterReading Integer,
+ fuelType FuelType,
+ fullTank Boolean,
+ invoice Blob,
+ note TextBlob,
+ createdOn Instant, 
+ updatedOn Instant
+}
+
+enum FuelType{
+    PETROL (Petrol), DESEAL (Deseal), ELECTRIC (Electric), HYBRID (Hybrid)
+
+}
+
+entity InsuranceCover{
+    companyName String required,
+    policyNumber Integer required,
+    insuranceType InsuranceType required,
+    premium BigDecimal required,
+    cover String,
+    invoiceNumber String,
+    invoice Blob,
+    insuranceAddress TextBlob,
+    email String,
+   	mobilePhone String,
+    note TextBlob,
+    createdOn Instant, 
+    updatedOn Instant  
+  
+}
+
+enum InsuranceType{
+    VEHICLEINSURANCE ("Vehicle Insurance"), ITEMINSURANCE ("Item Insurance")
+}
+
+
+entity VehicleMaintenance{
+		description TextBlob required,
+        maintanceType MaintenanceType,
+        serviceTasks ServiceTasks,
+        parts String ,
+        totalCost Float required,
+        invoice Blob,
+        startTime Instant,
+        finishTime Instant,
+        note TextBlob,
+        createdOn Instant, 
+    	updatedOn Instant
+}
+
+
+enum MaintenanceType{
+    ROUTINE (Routine), SCHEDULED (Scheduled), EMERGENCY (Emergency), ACCIDENT (Accident), OTHERS (Others)
+}
+
+
+entity Subcription {
+	SubcriptionType SubcriptionTypes  required
+    description String
+    fee Float
+}
+
+enum SubcriptionTypes{
+	  Silver, Gold, Diamond
+}
+
+
+
+entity Sales {
+    paymentDate Instant required,
+    status PaymentStatus required,
+    method PaymentMethod,
+    notes TextBlob,
+    amount BigDecimal required,
+    paymentType PaymentType, 
+    createdOn Instant, 
+    updatedOn Instant
+    
+}
+
+entity Tax{
+	taxCode String required,
+	taxName String required,
+    taxType TaxType,
+    rate Float,
+    note TextBlob,
+    createdOn Instant, 
+    updatedOn Instant
+    
+}
+
+
+
+enum TaxType{
+    VAT, OTHERS ("Others")
+}
+
+
+
+enum PaymentMethod {
+    CREDITCARD ("Credit Card"), BANKTRANSFER ("Bank Transfer"), CASH (Cash )
+}
+
+enum PaymentType{
+      BALANCE (Balance), DEPOSIT (Deposit), FULL (full)
+}
+
+enum PaymentStatus{
+    PENDING (Pending), DONE (Done) 
+}
+
+entity Invoice {
+    invoiceDate Instant required,
+    status InvoiceStatus required,
+    notesToCustomer TextBlob,
+    generatedInvoive Blob,
+    createdOn Instant, 
+    updatedOn Instant
+}
+
+
+entity Trip {
+    pickupDateTime Instant required,
+    dropoffDateTime Instant,
+    pickupAddress Instant required,
+    dropoffAddress Instant required,
+    status TripStatus required,
+    supportDocument Blob,
+    createdOn Instant, 
+    updatedOn Instant
+    
+    
+}
+
+enum TripStatus {
+    APPROVED (Approved), CANCELLED (Cancelled), 
+    EXECUTED (Executed),  PENDING (Pending), 
+    ONGOING (OnGoing )
+    
+}
+
+
+enum InvoiceStatus{
+    ISSUED ("Issued"), PROCESSING ("Processing")
+	
+}
+entity TransactionTypeDE {
+ xactTypeCode XactTypeCode required
+ name String
+ 
+}
+
+enum XactTypeCode {
+    Cr, Dr
+}
+
+
+
+
+
+entity ShipperAccountStatement{
+ Date Instant
+ ClosingBalance Float
+ TotalCredit Float
+ TotalDebit Float
+ 
+}
+
+
+
+entity TransactionTypeExt{
+ xactTypeCodeExt XactTypeCodeExt required
+ description String
+}
+
+enum XactTypeCodeExt {
+ Tax, Maintainance, Fluel, Insurance, PayOuts, Fees, DriverSalary
+}
+
+
+entity LedgerType {
+ ledgerType LedgerTypes required
+ description String
+
+}
+
+
+enum LedgerTypes{
+ Revenue, Expense
+
+}
+
+
+entity Ledger{
+    ledgerNo String
+	name  String 
+
+}
+
+
+
+entity LedgerStatement {
+Date Instant
+ ClosingBalance Float
+}
+
+
+
+
+entity AccountTransaction{
+DateTime Instant
+Amount Float
+}
+
+
+
+
+
+
+enum TransmissionType {
+    AUTOMATIC (Automatic), AUTOMATEDMANUAL ("Automated Manual" ), MANUAL (Manual )
+    
+}
+
+enum ServiceTasks{
+  NONE (None), CHANGEOIL ("Change Oil"), CHECKENGINEBELT ("Check Engine Belt"), 
+  CHECKSUSPENSION ("Check Suspension"), REPLACEBRAKEPADS ("Replace Brake Pads"), CHECKTIMINGBELT ("Check Timing Belt"), 
+  REPLACEENGINECOOLANT ("Replace Engine Coolant"),  CHECKBREAK ("Check Break"), CHECKBATTERY ("Check Battery"), 
+  ROTATETIRES ("Rotate Tires"), REPLACEAIRFILTER ("Replace Air Filter"), 
+  REPLACEBRAKEROTOR ("Replace Brake Rotor"), REPLACETRANSMISSIONFLUID ("Replace Transmission Fluid"), 
+  REPLACESPARKPLUG ("Replace Spark Plug"), REPAIRRUST ("Repair Rust")
+  
+}
+
+
+
+
+
+
+
+relationship OneToMany {
+  Vehicle to AccountTransaction{vehicle(licensePlateNo)}
+  Vehicle to  ShipperAccountStatement{vehicle(licensePlateNo)}
+  Vehicle{fuelEntry} to FuelEntry{vehicle(licensePlateNo)}
+  Vehicle{cover} to InsuranceCover{vehicle(licensePlateNo)} 
+  Vehicle{maintance} to VehicleMaintenance{vehicle(licensePlateNo)} 
+  Vehicle{inspector} to VehicleInspection{vehicle}
+  Vehicle{accidents} to Accidents{vehicle} 
+  Vehicle{trips} to	Trip{vehicle} 
+  
+  TransactionTypeDE to Subcription{transactionTypeDE(xactTypeCode)} 
+  Subcription to Vehicle{subcription(SubcriptionTypes)}
+  
+  LedgerType to Ledger{ledgerType(LedgerTypes ) } 
+  Ledger to LedgerTransaction{ledger(ledgerNo)}
+  Ledger to LedgerStatement{ledger(ledgerNo)}
+  Ledger to AccountTransaction{ledger(ledgerNo)}
+  TransactionTypeDE to AccountTransaction{transactionTypeDE(xactTypeCode)} 
+  TransactionTypeExt  to AccountTransaction{transactionTypeExt(xactTypeCodeExt)}
+  
+  AccountTransaction to FuelEntry{AccountTransaction}
+  AccountTransaction to InsuranceCover
+  AccountTransaction to VehicleMaintenance
+  AccountTransaction to Tax
+  AccountTransaction to Sales
+  
+  InsuranceCover{tripInsured} to Trip {cover}
+  Trip {AdvancePayment} to Sales{trip}
+  Sales{invoice} to Invoice{payment} 
+  
+  Contracts {vehicle} to Vehicle {contarctEntered},
+  Workshop{maintance} to VehicleMaintenance{workshop},
+
+    Invoice{payment} to Sales{invoice} 
+   
+  
+  
+}
+    
+    
+    
+relationship ManyToOne {
+  State{country (countryName)} to Country,
+  LocalGovernment{state(stateName)} to State,
+  Address{country(countryName)} to Country,
+  Address{state(stateName)} to State,
+  Address{localGovernment(localGovernmentName)} to LocalGovernment,
+  Address{user(firstName)} to User,
+  Vehicle{owner(firstName)} to User,
+  Booking{shipper(firstName)} to User,
+  Payment{shipper(firstName)} to User,
+  Issues{reportedBy(firstName)} to User,
+  Issues{assignedTo(firstName)} to User ,
+  Accidents{inspectedBy(firstName)} to User,
+  FuelEntry{boughtBy(firstName)} to User,
+  VehicleInspection{inspector(firstName)} to User
+  BanksAccountDetails{accountHolder(firstName)} to User
+  Vehicle{createdBy} to User,
+    Vehicle{updatedBy} to User,
+    VehicleInspection{createdBy} to User,
+    VehicleInspection{updatedBy} to User,
+    VehicleMaintenance{createdBy} to User,
+    VehicleMaintenance{updatedBy} to User,
+    InsuranceCover{createdBy} to User,
+    InsuranceCover{updatedBy} to User,
+    FuelEntry{createdBy} to User,
+    FuelEntry{updatedBy} to User,
+    Issues{createdBy} to User,
+    Issues{updatedBy} to User,
+    
+    AuxillaryUsers {nextofKin(firstName)} to User,
+    AuxillaryUsers{createdBy} to User,
+    AuxillaryUsers{updatedBy} to User,
+    
+    Accidents{createdBy} to User,
+    Accidents{updatedBy} to User,
+    Workshop{createdBy} to User,
+    Workshop{updatedBy} to User,
+    Trip{createdBy} to User,
+    Trip{updatedBy} to User,
+    Consignment{createdBy} to User,
+    Consignment{updatedBy} to User,
+    Sales{createdBy} to User,
+    Sales{updatedBy} to User,
+    BanksAccountDetails {createdBy} to User,
+    BanksAccountDetails{updatedBy} to User,
+    Commisions{createdBy} to User,
+    Commisions{updatedBy} to User,
+    
+    QuotedPrice{createdBy} to User,
+    QuotedPrice{updatedBy} to User,
+    Vehicle{currentDriver} to User
+    
+    
+    Consignment{trip} to Trip{consigment} , 
+    Booking{pickupState(stateName)}  to State,
+    Booking{pickupLG(localGovernmentName)}  to LocalGovernment,
+    Booking{dropoffState(stateName)}  to State,
+    Booking{dropoffLG(localGovernmentName)}  to LocalGovernment,
+    Booking{quotedPrice}  to QuotedPrice{booking},
+    Trip{booking}  to Booking {trips}
+    Trip{pickupState(stateName)}  to State,
+    Trip{pickupLG(localGovernmentName)}  to LocalGovernment,
+    Trip{dropoffState(stateName)}  to State,
+    Trip{dropoffLG(localGovernmentName)}  to LocalGovernment,
+   	Trip{vehicle} to  Vehicle{trips},
+    
+    BanksAccountDetails{bank(Name)} to Banks{accounts}
+    }
+    
+    
+  relationship ManyToMany {
+    Contracts{services} to Services{contracts}
+    Issues{vehicles} to Vehicle{issues},
+//  Trip {documentsAccepeted} to TripSupportDocument {trip}
+ // 
+ }
